@@ -1,8 +1,4 @@
-import {error, info, request, response} from './logger'
-import {decryptData, encryptData} from './crypto'
-import './extension/promise'
+import "./extension/promise";
 
-export * from './logger'
-
-const logger = {info, error, request, response, encryptData, decryptData}
-export default logger
+export * from "./logger";
+export {default as logger} from "./logger";

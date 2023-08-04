@@ -129,7 +129,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: "logger.ts",
+      files: "index.ts",
       rules: {
         "no-console": "off"
       }

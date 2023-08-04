@@ -11,11 +11,11 @@ A library to log your info and error in your application. If you don't want to l
 ## Example
 
 ```javascript
-const logger = require("logging-starter")
+const index = require("logging-starter")
 
-logger.info({message: "good message", data: {text: "text that you want to encrypt"}, additionalData: {text: "some additional data"}, searchableFields:{field: "Fields that you want to search on logging screen"}})
+index.info({message: "good message", data: {text: "text that you want to encrypt"}, additionalData: {text: "some additional data"}, searchableFields:{field: "Fields that you want to search on logging screen"}})
 
-logger.error({errorCode: "your custom error code", errorMessage: "your custom message", data: {text: "text that you want to encrypt"}, error: new Error("Error that you recieved in your application"),  additionalData: {text: "some additional data"}, searchableFields:{field: "Fields that you want to search on logging screen"}})
+index.error({errorCode: "your custom error code", errorMessage: "your custom message", data: {text: "text that you want to encrypt"}, error: new Error("Error that you recieved in your application"),  additionalData: {text: "some additional data"}, searchableFields:{field: "Fields that you want to search on logging screen"}})
 
 new Promise((resolve, reject) => {
   resolve("message");
