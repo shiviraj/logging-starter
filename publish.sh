@@ -9,12 +9,9 @@ minorVersion=$(echo $version | cut -d '.' -f 3)
 newVersion=$(echo $majorVersion.$minorVersion)
 echo new version: $newVersion
 
-npm publish --version=$newVersion
+newPackageJson=$(cat package.json | sed "s/\"version\": \".*\",/\"version\": \"$newVersion\",/")
+echo $newPackageJson > package.json
 
-#versionInJson=$(echo \"version\":\"$newVersion\",)
-#echo $versionInJson
-#
-#awk 'NR==3 {$0="New Text"} {print}' file.txt > tmpfile
-#sed -i '3s/.*/$versionInJson/' ./package.json
-##cat package.json | sed -e 's/"version": ".*",/${versionInJson}/' > tmpFile
-##cat tmpFile
+npm run prettier:fix -- package.json
+
+npm publish

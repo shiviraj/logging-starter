@@ -10,7 +10,7 @@ module.exports = {
     project: "./tsconfig.json",
   },
   root: true,
-  ignorePatterns: ['**/*.js', "lib", "node_modules", "**/*.spec.ts"],
+  ignorePatterns: ["*.js", "coverage", "lib", "node_modules", "**/*.spec.ts"],
   env: {
     commonjs: true,
     es6: true,

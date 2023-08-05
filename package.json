@@ -1,6 +1,6 @@
 {
   "name": "logging-starter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Logging starter",
   "types": "lib/index.d.js",
   "main": "lib/index.js",
@@ -15,7 +15,7 @@
     "test:coverage": "jest --coverage",
     "build": "rm -rf lib && tsc && npm run build:types",
     "build:types": "tsc -p tsconfig.types.json",
-    "publish": "npm run lint:check && npm run test:coverage && npm run build && sh publish.sh"
+    "publish:package": "npm run lint:check && npm run test:coverage && npm run build && sh publish.sh"
   },
   "publishConfig": {
     "access": "public"
