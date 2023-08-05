@@ -7,11 +7,10 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: true,
-    tsconfigRootDir: __dirname
+    project: "./tsconfig.json",
   },
   root: true,
-  ignorePatterns: ['**/*.js', "lib", "node_modules"],
+  ignorePatterns: ['**/*.js', "lib", "node_modules", "**/*.spec.ts"],
   env: {
     commonjs: true,
     es6: true,
@@ -129,11 +128,17 @@ module.exports = {
   },
   overrides: [
     {
+      files: "*.spec.ts",
+      rules: {
+        "@typescript-eslint/no-magic-numbers": "off"
+      }
+    },
+    {
       files: "*/logger/index.*ts",
       rules: {
         "no-console": "off",
         "@typescript-eslint/no-unsafe-assignment": "off"
-      }
+      },
     },
     {
       files: "*/config/index.ts",
@@ -142,16 +147,10 @@ module.exports = {
       }
     },
     {
-      files: "*.spec.ts",
-      rules: {
-        "@typescript-eslint/no-magic-numbers": "off"
-      }
-    },
-    {
       files: "*/types/logger.ts",
       rules: {
         "@typescript-eslint/no-explicit-any": "off"
       }
     }
-  ]
+  ],
 }
