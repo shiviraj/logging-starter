@@ -1,122 +1,137 @@
-import logger from "./index";
-import * as crypto from "../crypto";
-import DecryptionError from "../errors/decryptionError";
+import logger from './index'
+import * as crypto from '../crypto'
+import DecryptionError from '../errors/decryptionError'
 
-describe("Logger test", () => {
+describe('Logger test', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
-    jest.clearAllTimers();
-  });
+    jest.clearAllMocks()
+    jest.clearAllTimers()
+  })
 
   afterEach(() => {
-    jest.clearAllMocks();
-    jest.clearAllTimers();
-  });
+    jest.clearAllMocks()
+    jest.clearAllTimers()
+  })
 
-  it("should log info", () => {
-    jest.spyOn(console, "log").mockImplementation();
-    jest.spyOn(crypto, "encryptData").mockReturnValue({data: "data"});
-    jest.useFakeTimers({now: new Date("2023-01-01")});
+  it('should log info', () => {
+    jest.spyOn(console, 'log').mockImplementation()
+    jest.spyOn(crypto, 'encryptData').mockReturnValue({data: 'data'})
+    jest.useFakeTimers({now: new Date('2023-01-01')})
 
-    logger.info({message: "message", data: {text: "text"}});
+    logger.info({message: 'message', data: {text: 'text'}})
 
-    expect(console.log).toHaveBeenCalledTimes(1);
-    expect(console.log).toHaveBeenCalledWith("{\"timeStamp\":\"2023-01-01T00:00:00.000Z\",\"message\":\"message\",\"data\":\"data\",\"label\":\"INFO\"}");
-    expect(crypto.encryptData).toHaveBeenCalledTimes(1);
-    expect(crypto.encryptData).toHaveBeenCalledWith({text: "text"});
-  });
+    expect(console.log).toHaveBeenCalledTimes(1)
+    expect(console.log).toHaveBeenCalledWith(
+      '{"timeStamp":"2023-01-01T00:00:00.000Z","message":"message","data":"data","label":"INFO"}'
+    )
+    expect(crypto.encryptData).toHaveBeenCalledTimes(1)
+    expect(crypto.encryptData).toHaveBeenCalledWith({text: 'text'})
+  })
 
-  it("should log info without encryption", () => {
-    jest.spyOn(console, "log").mockImplementation();
-    jest.useFakeTimers({now: new Date("2023-01-01")});
+  it('should log info without encryption', () => {
+    jest.spyOn(console, 'log').mockImplementation()
+    jest.useFakeTimers({now: new Date('2023-01-01')})
 
-    logger.info({message: "message", data: {text: "text"}}, false);
+    logger.info({message: 'message', data: {text: 'text'}}, false)
 
-    expect(console.log).toHaveBeenCalledTimes(1);
-    expect(console.log).toHaveBeenCalledWith("{\"timeStamp\":\"2023-01-01T00:00:00.000Z\",\"message\":\"message\",\"data\":{\"text\":\"text\"},\"label\":\"INFO\"}");
-  });
+    expect(console.log).toHaveBeenCalledTimes(1)
+    expect(console.log).toHaveBeenCalledWith(
+      '{"timeStamp":"2023-01-01T00:00:00.000Z","message":"message","data":{"text":"text"},"label":"INFO"}'
+    )
+  })
 
-  it("should log error", () => {
-    jest.spyOn(console, "error").mockImplementation();
-    jest.spyOn(crypto, "encryptData").mockReturnValue({data: "data"});
-    jest.useFakeTimers({now: new Date("2023-01-01")});
+  it('should log error', () => {
+    jest.spyOn(console, 'error').mockImplementation()
+    jest.spyOn(crypto, 'encryptData').mockReturnValue({data: 'data'})
+    jest.useFakeTimers({now: new Date('2023-01-01')})
 
-    logger.error({errorMessage: "message", data: {text: "text"}, error: new DecryptionError()});
+    logger.error({errorMessage: 'message', data: {text: 'text'}, error: new DecryptionError()})
 
-    expect(console.error).toHaveBeenCalledTimes(1);
-    expect(crypto.encryptData).toHaveBeenCalledTimes(1);
-    expect(crypto.encryptData).toHaveBeenCalledWith({text: "text"});
-  });
+    expect(console.error).toHaveBeenCalledTimes(1)
+    expect(crypto.encryptData).toHaveBeenCalledTimes(1)
+    expect(crypto.encryptData).toHaveBeenCalledWith({text: 'text'})
+  })
 
-  it("should log error without encryption", () => {
-    jest.spyOn(console, "error").mockImplementation();
-    jest.useFakeTimers({now: new Date("2023-01-01")});
+  it('should log error without encryption', () => {
+    jest.spyOn(console, 'error').mockImplementation()
+    jest.useFakeTimers({now: new Date('2023-01-01')})
 
-    logger.error({errorMessage: "message", data: {text: "text"}}, false);
+    logger.error({errorMessage: 'message', data: {text: 'text'}}, false)
 
-    expect(console.error).toHaveBeenCalledTimes(1);
-    expect(console.error).toHaveBeenCalledWith("{\"timeStamp\":\"2023-01-01T00:00:00.000Z\",\"errorMessage\":\"message\",\"data\":{\"text\":\"text\"},\"error\":{},\"label\":\"ERROR\"}");
-  });
+    expect(console.error).toHaveBeenCalledTimes(1)
+    expect(console.error).toHaveBeenCalledWith(
+      '{"timeStamp":"2023-01-01T00:00:00.000Z","errorMessage":"message","data":{"text":"text"},"error":{},"label":"ERROR"}'
+    )
+  })
 
-  it("should log request", () => {
-    jest.spyOn(console, "log").mockImplementation();
-    jest.spyOn(crypto, "encryptData").mockReturnValue({data: "data"});
-    jest.useFakeTimers({now: new Date("2023-01-01")});
+  it('should log request', () => {
+    jest.spyOn(console, 'log').mockImplementation()
+    jest.spyOn(crypto, 'encryptData').mockReturnValue({data: 'data'})
+    jest.useFakeTimers({now: new Date('2023-01-01')})
 
-    logger.request({message: "message", method: "post", url: "/", data: {text: "text"}});
+    logger.request({message: 'message', method: 'post', url: '/', data: {text: 'text'}})
 
-    expect(console.log).toHaveBeenCalledTimes(1);
-    expect(console.log).toHaveBeenCalledWith("{\"timeStamp\":\"2023-01-01T00:00:00.000Z\",\"message\":\"message\",\"method\":\"post\",\"url\":\"/\",\"data\":\"data\",\"label\":\"API_REQUEST\"}");
-    expect(crypto.encryptData).toHaveBeenCalledTimes(1);
-    expect(crypto.encryptData).toHaveBeenCalledWith({text: "text"});
-  });
+    expect(console.log).toHaveBeenCalledTimes(1)
+    expect(console.log).toHaveBeenCalledWith(
+      '{"timeStamp":"2023-01-01T00:00:00.000Z","message":"message","method":"post","url":"/","data":"data","label":"API_REQUEST"}'
+    )
+    expect(crypto.encryptData).toHaveBeenCalledTimes(1)
+    expect(crypto.encryptData).toHaveBeenCalledWith({text: 'text'})
+  })
 
-  it("should log request without encryption", () => {
-    jest.spyOn(console, "log").mockImplementation();
-    jest.useFakeTimers({now: new Date("2023-01-01")});
+  it('should log request without encryption', () => {
+    jest.spyOn(console, 'log').mockImplementation()
+    jest.useFakeTimers({now: new Date('2023-01-01')})
 
-    logger.request({message: "message", method: "post", url: "/", data: {text: "text"}}, false);
+    logger.request({message: 'message', method: 'post', url: '/', data: {text: 'text'}}, false)
 
-    expect(console.log).toHaveBeenCalledTimes(1);
-    expect(console.log).toHaveBeenCalledWith("{\"timeStamp\":\"2023-01-01T00:00:00.000Z\",\"message\":\"message\",\"method\":\"post\",\"url\":\"/\",\"data\":{\"text\":\"text\"},\"label\":\"API_REQUEST\"}");
-  });
+    expect(console.log).toHaveBeenCalledTimes(1)
+    expect(console.log).toHaveBeenCalledWith(
+      '{"timeStamp":"2023-01-01T00:00:00.000Z","message":"message","method":"post","url":"/","data":{"text":"text"},"label":"API_REQUEST"}'
+    )
+  })
 
-  it("should log response", () => {
-    jest.spyOn(console, "log").mockImplementation();
-    jest.spyOn(crypto, "encryptData").mockReturnValue({data: "data"});
-    jest.useFakeTimers({now: new Date("2023-01-01")});
-
-    logger.response({
-      statusCode: 200,
-      message: "message",
-      responseData: "",
-      method: "post",
-      url: "/",
-      data: {text: "text"}
-    });
-
-    expect(console.log).toHaveBeenCalledTimes(1);
-    expect(console.log).toHaveBeenCalledWith("{\"timeStamp\":\"2023-01-01T00:00:00.000Z\",\"message\":\"message\",\"method\":\"post\",\"url\":\"/\",\"statusCode\":200,\"data\":\"data\",\"label\":\"API_RESPONSE\"}");
-    expect(crypto.encryptData).toHaveBeenCalledTimes(1);
-    expect(crypto.encryptData).toHaveBeenCalledWith({data: {text: "text"}, responseData: ""});
-  });
-
-
-  it("should log response without encryption", () => {
-    jest.spyOn(console, "log").mockImplementation();
-    jest.useFakeTimers({now: new Date("2023-01-01")});
+  it('should log response', () => {
+    jest.spyOn(console, 'log').mockImplementation()
+    jest.spyOn(crypto, 'encryptData').mockReturnValue({data: 'data'})
+    jest.useFakeTimers({now: new Date('2023-01-01')})
 
     logger.response({
       statusCode: 200,
-      message: "message",
-      responseData: "",
-      method: "post",
-      url: "/",
-      data: {text: "text"}
-    }, false);
+      message: 'message',
+      responseData: '',
+      method: 'post',
+      url: '/',
+      data: {text: 'text'}
+    })
 
-    expect(console.log).toHaveBeenCalledTimes(1);
-    expect(console.log).toHaveBeenCalledWith("{\"timeStamp\":\"2023-01-01T00:00:00.000Z\",\"message\":\"message\",\"method\":\"post\",\"url\":\"/\",\"statusCode\":200,\"responseData\":\"\",\"data\":{\"text\":\"text\"},\"label\":\"API_RESPONSE\"}");
-  });
+    expect(console.log).toHaveBeenCalledTimes(1)
+    expect(console.log).toHaveBeenCalledWith(
+      '{"timeStamp":"2023-01-01T00:00:00.000Z","message":"message","method":"post","url":"/","statusCode":200,"data":"data","label":"API_RESPONSE"}'
+    )
+    expect(crypto.encryptData).toHaveBeenCalledTimes(1)
+    expect(crypto.encryptData).toHaveBeenCalledWith({data: {text: 'text'}, responseData: ''})
+  })
 
-});
+  it('should log response without encryption', () => {
+    jest.spyOn(console, 'log').mockImplementation()
+    jest.useFakeTimers({now: new Date('2023-01-01')})
+
+    logger.response(
+      {
+        statusCode: 200,
+        message: 'message',
+        responseData: '',
+        method: 'post',
+        url: '/',
+        data: {text: 'text'}
+      },
+      false
+    )
+
+    expect(console.log).toHaveBeenCalledTimes(1)
+    expect(console.log).toHaveBeenCalledWith(
+      '{"timeStamp":"2023-01-01T00:00:00.000Z","message":"message","method":"post","url":"/","statusCode":200,"responseData":"","data":{"text":"text"},"label":"API_RESPONSE"}'
+    )
+  })
+})

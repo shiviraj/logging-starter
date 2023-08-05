@@ -129,15 +129,28 @@ module.exports = {
   },
   overrides: [
     {
-      files: "index.ts",
+      files: "*/logger/index.*ts",
       rules: {
-        "no-console": "off"
+        "no-console": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off"
       }
     },
     {
-      files: "config.ts",
+      files: "*/config/index.ts",
       rules: {
         "no-process-env": "off"
+      }
+    },
+    {
+      files: "*.spec.ts",
+      rules: {
+        "@typescript-eslint/no-magic-numbers": "off"
+      }
+    },
+    {
+      files: "*/types/logger.ts",
+      rules: {
+        "@typescript-eslint/no-explicit-any": "off"
       }
     }
   ]

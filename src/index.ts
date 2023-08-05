@@ -1,4 +1,4 @@
-import "./extension/promise";
+import './extension/promise'
 
-export * from "./logger";
-export {default as logger} from "./logger";
+export * from './logger'
+export {default as logger} from './logger'

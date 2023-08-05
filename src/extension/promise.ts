@@ -1,7 +1,7 @@
-import index from "../logger";
-import type {LogError, LogInfo} from "../types/logger";
+import index from '../logger'
+import type {LogError, LogInfo} from '../types/logger'
 
-export {};
+export {}
 
 declare global {
   interface Promise<T> {
@@ -9,33 +9,33 @@ declare global {
       logInfo: LogInfo<D>,
       encryption?: boolean,
       logData?: boolean
-    ): Promise<T>;
+    ): Promise<T>
 
-    logOnError<D extends Record<string, unknown>>(logError: LogError<D>, encryption?: boolean): Promise<T>;
+    logOnError<D extends Record<string, unknown>>(logError: LogError<D>, encryption?: boolean): Promise<T>
   }
 }
 
 Promise.prototype.logOnSuccess = function <T, D extends Record<string, unknown>>(
   this: Promise<T>,
   logInfo: LogInfo<D>,
-  encryption: boolean = true,
-  logData: boolean = true
+  encryption = true,
+  logData = true
 ): Promise<T> {
-  const {message, data, additionalData, searchableFields} = logInfo;
+  const {message, data, additionalData, searchableFields} = logInfo
   return this.then((parameter: T) => {
-    index.info({message, data: logData ? {parameter} : data, additionalData, searchableFields}, encryption);
-    return parameter;
-  });
-};
+    index.info({message, data: logData ? {parameter} : data, additionalData, searchableFields}, encryption)
+    return parameter
+  })
+}
 
 Promise.prototype.logOnError = function <T, D extends Record<string, unknown>>(
   this: Promise<T>,
   logError: LogError<D>,
-  encryption: boolean = true
+  encryption = true
 ): Promise<T> {
-  const {errorCode, errorMessage, data, additionalData, searchableFields} = logError;
+  const {errorCode, errorMessage, data, additionalData, searchableFields} = logError
   return this.catch((error: Error) => {
-    index.error({errorCode, errorMessage, error, data, additionalData, searchableFields}, encryption);
-    throw error;
-  });
-};
+    index.error({errorCode, errorMessage, error, data, additionalData, searchableFields}, encryption)
+    throw error
+  })
+}
