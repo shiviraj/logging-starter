@@ -2,11 +2,15 @@ import {encryptData} from '../crypto'
 import type {LogError, LogInfo, LogRequest, LogResponse} from '../types/logger'
 
 const logInfo = <T extends Record<string, unknown>>(data: T): void => {
-  console.log(JSON.stringify(data))
+  if (typeof window === 'undefined') {
+    console.log(JSON.stringify(data))
+  }
 }
 
 const logError = <T extends Record<string, unknown>>(data: T): void => {
-  console.error(JSON.stringify(data))
+  if (typeof window === 'undefined') {
+    console.error(JSON.stringify(data))
+  }
 }
 
 const getTimeStamp = () => new Date().toJSON()
