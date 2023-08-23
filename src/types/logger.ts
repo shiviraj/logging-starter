@@ -1,25 +1,25 @@
-export interface LogInfo<D> {
+export interface LogInfo {
   message: string
-  data?: D
-  additionalData?: D
-  searchableFields?: D
+  data?: Record<string, unknown>
+  additionalData?: Record<string, unknown>
+  searchableFields?: Record<string, unknown>
 }
 
-export interface LogError<D> {
+export interface LogError {
   errorCode?: string
   errorMessage: string
   error?: Error
-  data?: D
-  additionalData?: D
-  searchableFields?: D
+  data?: Record<string, unknown>
+  additionalData?: Record<string, unknown>
+  searchableFields?: Record<string, unknown>
 }
 
-export interface LogRequest<D> extends LogInfo<D> {
+export interface LogRequest extends LogInfo {
   method: string
   url: string
 }
 
-export interface LogResponse<D> extends LogRequest<D> {
+export interface LogResponse extends LogRequest {
   statusCode: number
   responseData?: any
   responseTime?: number

@@ -1,6 +1,6 @@
 {
   "name": "logging-starter",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Logging starter",
   "types": "lib/index.d.js",
   "main": "lib/index.js",

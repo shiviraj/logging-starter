@@ -5,19 +5,15 @@ export {}
 
 declare global {
   interface Promise<T> {
-    logOnSuccess<D extends Record<string, unknown>>(
-      logInfo: LogInfo<D>,
-      encryption?: boolean,
-      logData?: boolean
-    ): Promise<T>
+    logOnSuccess(logInfo: LogInfo, encryption?: boolean, logData?: boolean): Promise<T>
 
-    logOnError<D extends Record<string, unknown>>(logError: LogError<D>, encryption?: boolean): Promise<T>
+    logOnError(logError: LogError, encryption?: boolean): Promise<T>
   }
 }
 
-Promise.prototype.logOnSuccess = function <T, D extends Record<string, unknown>>(
+Promise.prototype.logOnSuccess = function <T>(
   this: Promise<T>,
-  logInfo: LogInfo<D>,
+  logInfo: LogInfo,
   encryption = true,
   logData = true
 ): Promise<T> {
@@ -28,11 +24,7 @@ Promise.prototype.logOnSuccess = function <T, D extends Record<string, unknown>>
   })
 }
 
-Promise.prototype.logOnError = function <T, D extends Record<string, unknown>>(
-  this: Promise<T>,
-  logError: LogError<D>,
-  encryption = true
-): Promise<T> {
+Promise.prototype.logOnError = function <T>(this: Promise<T>, logError: LogError, encryption = true): Promise<T> {
   const {errorCode, errorMessage, data, additionalData, searchableFields} = logError
   return this.catch((error: Error) => {
     index.error({errorCode, errorMessage, error, data, additionalData, searchableFields}, encryption)

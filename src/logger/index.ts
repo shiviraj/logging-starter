@@ -15,7 +15,7 @@ const logError = <T extends Record<string, unknown>>(data: T): void => {
 
 const getTimeStamp = () => new Date().toJSON()
 
-const request = <D extends Record<string, unknown>>(logRequest: LogRequest<D>, encryption = true): void => {
+const request = (logRequest: LogRequest, encryption = true): void => {
   const {message, method, url, data, additionalData, searchableFields} = logRequest
   const cryptoData = encryption ? encryptData(data) : {data}
   logInfo({
@@ -30,7 +30,7 @@ const request = <D extends Record<string, unknown>>(logRequest: LogRequest<D>, e
   })
 }
 
-const response = <D extends Record<string, unknown>>(logResponse: LogResponse<D>, encryption = true): void => {
+const response = (logResponse: LogResponse, encryption = true): void => {
   const {message, method, url, searchableFields, data, responseData, responseTime, additionalData, statusCode} =
     logResponse
   const cryptoData = encryption ? encryptData({responseData, data}) : {responseData, data}
@@ -48,7 +48,7 @@ const response = <D extends Record<string, unknown>>(logResponse: LogResponse<D>
   })
 }
 
-const info = <D extends Record<string, unknown>>(info: LogInfo<D>, encryption = true): void => {
+const info = (info: LogInfo, encryption = true): void => {
   const {message, data, additionalData, searchableFields} = info
   const cryptoData = encryption ? encryptData(data) : {data}
   logInfo({
@@ -61,7 +61,7 @@ const info = <D extends Record<string, unknown>>(info: LogInfo<D>, encryption = 
   })
 }
 
-const error = <D extends Record<string, unknown>>(error: LogError<D>, encryption = true): void => {
+const error = (error: LogError, encryption = true): void => {
   const {errorCode, errorMessage, error: errorStack, data, additionalData, searchableFields} = error
   const cryptoData = encryption ? encryptData(data) : {data}
   logError({
