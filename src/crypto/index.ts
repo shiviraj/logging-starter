@@ -2,12 +2,13 @@ import * as crypto from 'crypto'
 import config from '../config'
 import logger from '../logger'
 import DecryptionError from '../errors/decryptionError'
+import {stringify} from '../utils'
 
 const algorithm = 'aes-256-ctr'
 const encoding: BufferEncoding = 'base64'
 
 const encryptData = <D extends Record<string, unknown>>(data?: D): {data: string} | {encryptedData: string} => {
-  const text = JSON.stringify(data ?? {})
+  const text = stringify(data ?? {})
 
   if (!config.encryptionEnabled) {
     return {data: text}

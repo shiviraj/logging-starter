@@ -28,6 +28,24 @@ describe('Logger test', () => {
     expect(crypto.encryptData).toHaveBeenCalledWith({text: 'text'})
   })
 
+  it('should log info with circular dependency', () => {
+    jest.spyOn(console, 'log').mockImplementation()
+    jest.spyOn(crypto, 'encryptData').mockReturnValue({data: 'data'})
+    jest.useFakeTimers({now: new Date('2023-01-01')})
+
+    const obj: any = {}
+    obj.circularRef = obj
+
+    logger.info({message: 'success', data: {text: 'text'}, additionalData: obj})
+
+    expect(console.log).toHaveBeenCalledTimes(1)
+    expect(console.log).toHaveBeenCalledWith(
+      '{"timeStamp":"2023-01-01T00:00:00.000Z","message":"success","data":"data","additionalData":{"circularRef":"[Circular]"},"label":"INFO"}'
+    )
+    expect(crypto.encryptData).toHaveBeenCalledTimes(1)
+    expect(crypto.encryptData).toHaveBeenCalledWith({text: 'text'})
+  })
+
   it('should log info without encryption', () => {
     jest.spyOn(console, 'log').mockImplementation()
     jest.useFakeTimers({now: new Date('2023-01-01')})

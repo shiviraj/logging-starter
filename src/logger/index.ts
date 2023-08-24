@@ -1,15 +1,16 @@
 import {encryptData} from '../crypto'
 import type {LogError, LogInfo, LogRequest, LogResponse} from '../types/logger'
+import {stringify} from '../utils'
 
 const logInfo = <T extends Record<string, unknown>>(data: T): void => {
   if (typeof window === 'undefined') {
-    console.log(JSON.stringify(data))
+    console.log(stringify(data))
   }
 }
 
 const logError = <T extends Record<string, unknown>>(data: T): void => {
   if (typeof window === 'undefined') {
-    console.error(JSON.stringify(data))
+    console.error(stringify(data))
   }
 }
 
