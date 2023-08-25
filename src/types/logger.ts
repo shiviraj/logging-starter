@@ -14,6 +14,15 @@ export interface LogError {
   searchableFields?: Record<string, unknown>
 }
 
+export interface PromiseLogInfo extends LogInfo {
+  skipLoggingArgument?: boolean
+  encryption?: boolean
+}
+
+export interface PromiseLogError extends LogError {
+  encryption?: boolean
+}
+
 export interface LogRequest extends LogInfo {
   method: string
   url: string
